@@ -34,4 +34,5 @@ end
 if RUBY_VERSION < '2.0'
   # json 2.x requires ruby 2.0. Lock to 1.8
   gem 'json', '~> 1.8'
+  gem 'json_pure', '~> 1.8'
 end
