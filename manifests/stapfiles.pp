@@ -7,7 +7,7 @@ define systemtap::stapfiles (
   include ::systemtap
 
   file { "/root/systemtap/${name}.ko":
-    ensure  => "present",
+    ensure  => "${ensure}",
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
@@ -16,9 +16,9 @@ define systemtap::stapfiles (
   }
 
   exec { "load-stapfile-${name}":
-   command => "/usr/bin/staprun -L /root/systemtap/${name}.ko",
-   unless => "/bin/grep -q ${name} /proc/modules",
-   require => [Package['systemtap-runtime'], File["/root/systemtap/${name}.ko"]],
+    command => "/usr/bin/staprun -L /root/systemtap/${name}.ko",
+    unless  => "/bin/grep -q ${name} /proc/modules",
+    require => [Package['systemtap-runtime'], File["/root/systemtap/${name}.ko"]],
   }
 }
 
