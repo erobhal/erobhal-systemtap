@@ -1,0 +1,16 @@
+{
+  "name": "erobhal-systemtap",
+  "version": "0.0.1",
+  "author": "Robert Hallgren",
+  "summary": "Handle systemtap modules on Linux",
+  "license": "Apache-2.0",
+  "source": "git@github.com:/erobhal/erobhal-systemtap.git",
+  "project_page": "https://github.com/erobhal/erobhal-systemtap",
+  "issues_url": "https://github.com/erobhal/erobhal-systemtap/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_range": ">= 3.2.1"
+    }
+  ]
+}
