@@ -7,7 +7,7 @@ define systemtap::stapfiles (
   include ::systemtap
 
   file { "/root/systemtap/${name}.ko":
-    ensure  => "${ensure}",
+    ensure  => $ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
