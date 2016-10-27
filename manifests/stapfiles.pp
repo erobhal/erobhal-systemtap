@@ -1,6 +1,7 @@
 # == Define: systemtap::stapfiles
 #
 define systemtap::stapfiles (
+  $stap,
   $ensure = 'present',
 ){
 
@@ -11,25 +12,25 @@ define systemtap::stapfiles (
 
   
 
-  file { "/root/systemtap/${name}.ko":
+  file { "/root/systemtap/${stap}.ko":
     ensure  => $ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
-    source  => "puppet:///modules/systemtap/${name}.ko",
+    source  => "puppet:///modules/systemtap/${stap}.ko",
     require => File['/root/systemtap'],
   }
 
   if $ensure == 'present' {
     exec { "load-stapfile-${name}":
-      command => "/usr/bin/staprun -L /root/systemtap/${name}.ko",
-      unless  => "/bin/grep -q ${name} /proc/modules",
-      require => [Package['systemtap-runtime'], File["/root/systemtap/${name}.ko"]],
+      command => "/usr/bin/staprun -L /root/systemtap/${stap}.ko",
+      unless  => "/bin/grep -q ${stap} /proc/modules",
+      require => [Package['systemtap-runtime'], File["/root/systemtap/${stap}.ko"]],
     }
   } else {
     exec { "load-stapfile-${name}":
-      command => "/usr/bin/staprun -d ${name}",
-      onlyif  => "/bin/grep -q ${name} /proc/modules",
+      command => "/usr/bin/staprun -d ${stap}",
+      onlyif  => "/bin/grep -q ${stap} /proc/modules",
       require => Package['systemtap-runtime'],
     }
   }

@@ -35,7 +35,9 @@
 #
 # Copyright 2016 Your name here, unless otherwise noted.
 #
-class systemtap {
+class systemtap (
+  $CVE_2016_5195 = 'present',
+) {
 
 
   case $::osfamily {
@@ -43,12 +45,18 @@ class systemtap {
       case $::operatingsystemrelease {
         '6.4': {
           $stapfiles = {
-            'stap_11b46466687403f5b1d22fc2fba37380_64592' => { 'ensure' => 'present' },
+            'CVE-2016-5195' => {
+              'stap'   => 'stap_11b46466687403f5b1d22fc2fba37380_64592',
+              'ensure' => $CVE_2016_5195,
+            },
           }
         }
         '6.6': {
           $stapfiles = {
-            'stap_5afe0a813b16d0017d1b502a89afe606_64586' => { 'ensure' => 'present' },
+            'CVE-2016-5195' => {
+              'stap'   => 'stap_5afe0a813b16d0017d1b502a89afe606_64586',
+              'ensure' => $CVE_2016_5195,
+            },
           }
         }
         default: {

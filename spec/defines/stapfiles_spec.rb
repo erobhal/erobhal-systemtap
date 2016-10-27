@@ -7,13 +7,15 @@ describe 'systemtap::stapfiles' do
     {
       :osfamily => 'RedHat',
       :operatingsystemrelease => '6.4',
-      :stapfile => 'stap_64',
+      :title    => 'title_64',
+      :stap     => 'stap_64',
     },
     'RedHat 6.6' =>
     {
       :osfamily => 'RedHat',
       :operatingsystemrelease => '6.6',
-      :stapfile => 'stap_66',
+      :title    => 'title_66',
+      :stap     => 'stap_66',
     },
   }
 
@@ -24,24 +26,27 @@ describe 'systemtap::stapfiles' do
         :osfamily => v[:osfamily],
         :operatingsystemrelease => v[:operatingsystemrelease],
       } }
-      let(:title) { v[:stapfile] }
+      let(:title) { v[:title] }
+      let(:params) {{
+        :stap => v[:stap],
+      } }
 
       context "default params on #{k}" do
         it {
-            should contain_file("/root/systemtap/#{v[:stapfile]}.ko").with({
+            should contain_file("/root/systemtap/#{v[:stap]}.ko").with({
             'ensure'  => 'present',
             'owner'   => 'root',
             'group'   => 'root',
             'mode'    => '0600',
-            'source'  => "puppet:///modules/systemtap/#{v[:stapfile]}.ko",
+            'source'  => "puppet:///modules/systemtap/#{v[:stap]}.ko",
             'require' => 'File[/root/systemtap]',
           })
         }
         it {
-            should contain_exec("load-stapfile-#{v[:stapfile]}").with({
-            'command' => "/usr/bin/staprun -L /root/systemtap/#{v[:stapfile]}.ko",
-            'unless'  => "/bin/grep -q #{v[:stapfile]} /proc/modules",
-            'require' => ['Package[systemtap-runtime]', "File[/root/systemtap/#{v[:stapfile]}.ko]"],
+            should contain_exec("load-stapfile-#{v[:title]}").with({
+            'command' => "/usr/bin/staprun -L /root/systemtap/#{v[:stap]}.ko",
+            'unless'  => "/bin/grep -q #{v[:stap]} /proc/modules",
+            'require' => ['Package[systemtap-runtime]', "File[/root/systemtap/#{v[:stap]}.ko]"],
           })
         }
         it { should compile.with_all_deps }
@@ -49,23 +54,24 @@ describe 'systemtap::stapfiles' do
 
       context "ensure set to absent on #{k}" do
       let(:params) { {
+        :stap   => v[:stap],
         :ensure => 'absent',
       } }
 
         it {
-            should contain_file("/root/systemtap/#{v[:stapfile]}.ko").with({
+            should contain_file("/root/systemtap/#{v[:stap]}.ko").with({
             'ensure'  => 'absent',
             'owner'   => 'root',
             'group'   => 'root',
             'mode'    => '0600',
-            'source'  => "puppet:///modules/systemtap/#{v[:stapfile]}.ko",
+            'source'  => "puppet:///modules/systemtap/#{v[:stap]}.ko",
             'require' => 'File[/root/systemtap]',
           })
         }
         it {
-            should contain_exec("load-stapfile-#{v[:stapfile]}").with({
-            'command' => "/usr/bin/staprun -d #{v[:stapfile]}",
-            'onlyif'  => "/bin/grep -q #{v[:stapfile]} /proc/modules",
+            should contain_exec("load-stapfile-#{v[:title]}").with({
+            'command' => "/usr/bin/staprun -d #{v[:stap]}",
+            'onlyif'  => "/bin/grep -q #{v[:stap]} /proc/modules",
             'require' => 'Package[systemtap-runtime]',
           })
         }
@@ -73,6 +79,7 @@ describe 'systemtap::stapfiles' do
       end
       context "ensure set to unvalid value on #{k}" do
       let(:params) { {
+        :stap   => v[:stap],
         :ensure => 'yes',
       } }
         it 'should fail' do

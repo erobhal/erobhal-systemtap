@@ -7,11 +7,15 @@ describe 'systemtap' do
     {
       :osfamily => 'RedHat',
       :operatingsystemrelease => '6.4',
+      :title    => 'title_64',
+      :stap     => 'stap_64',
     },
     'RedHat 6.6' =>
     {
       :osfamily => 'RedHat',
       :operatingsystemrelease => '6.6',
+      :title    => 'title_66',
+      :stap     => 'stap_66',
     },
   }
 
