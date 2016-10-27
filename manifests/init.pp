@@ -36,7 +36,7 @@
 # Copyright 2016 Your name here, unless otherwise noted.
 #
 class systemtap (
-  $cve_2016_5195 = 'present',
+  $cve_2016_5195 = 'absent',
 ) {
 
 
