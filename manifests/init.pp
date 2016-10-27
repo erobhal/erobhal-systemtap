@@ -36,7 +36,7 @@
 # Copyright 2016 Your name here, unless otherwise noted.
 #
 class systemtap (
-  $CVE_2016_5195 = 'present',
+  $cve_2016_5195 = 'present',
 ) {
 
 
@@ -47,7 +47,7 @@ class systemtap (
           $stapfiles = {
             'CVE-2016-5195' => {
               'stap'   => 'stap_11b46466687403f5b1d22fc2fba37380_64592',
-              'ensure' => $CVE_2016_5195,
+              'ensure' => $cve_2016_5195,
             },
           }
         }
@@ -55,7 +55,7 @@ class systemtap (
           $stapfiles = {
             'CVE-2016-5195' => {
               'stap'   => 'stap_5afe0a813b16d0017d1b502a89afe606_64586',
-              'ensure' => $CVE_2016_5195,
+              'ensure' => $cve_2016_5195,
             },
           }
         }
