@@ -46,6 +46,41 @@ describe 'systemtap::stapfiles' do
         }
         it { should compile.with_all_deps }
       end
+
+      context "ensure set to absent on #{k}" do
+      let(:params) { {
+        :ensure => 'absent',
+      } }
+
+        it {
+            should contain_file("/root/systemtap/#{v[:stapfile]}.ko").with({
+            'ensure'  => 'absent',
+            'owner'   => 'root',
+            'group'   => 'root',
+            'mode'    => '0600',
+            'source'  => "puppet:///modules/systemtap/#{v[:stapfile]}.ko",
+            'require' => 'File[/root/systemtap]',
+          })
+        }
+        it {
+            should contain_exec("load-stapfile-#{v[:stapfile]}").with({
+            'command' => "/usr/bin/staprun -d #{v[:stapfile]}",
+            'onlyif'  => "/bin/grep -q #{v[:stapfile]} /proc/modules",
+            'require' => 'Package[systemtap-runtime]',
+          })
+        }
+        it { should compile.with_all_deps }
+      end
+      context "ensure set to unvalid value on #{k}" do
+      let(:params) { {
+        :ensure => 'yes',
+      } }
+        it 'should fail' do
+          expect {
+            should contain_class('systemtap')
+          }.to raise_error(Puppet::Error,/must be 'present' or 'absent'. Detected value is 'yes'./)
+        end
+      end
     end
   end
 end
