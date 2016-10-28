@@ -63,11 +63,7 @@ describe 'systemtap' do
       :osfamily => 'RedHat',
       :operatingsystemrelease => '77.7'
     } }
-    it 'should fail' do
-      expect {
-        should contain_class('systemtap')
-      }.to raise_error(Puppet::Error,/systemtap supports RedHat 6.4 and 6.6. Detected RedHat release is 77.7./)
-    end
+    it { should contain_notify('systemtap supports RedHat 6.4 and 6.6. Detected RedHat release is 77.7.')}
   end
 
 

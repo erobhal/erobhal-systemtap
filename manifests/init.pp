@@ -60,7 +60,7 @@ class systemtap (
           }
         }
         default: {
-          fail("systemtap supports RedHat 6.4 and 6.6. Detected RedHat release is ${::operatingsystemrelease}.")
+          notify {"systemtap supports RedHat 6.4 and 6.6. Detected RedHat release is ${::operatingsystemrelease}.":}
         }
       }
     }
