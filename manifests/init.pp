@@ -69,19 +69,20 @@ class systemtap (
     }
   }
 
+  if $stapfiles != undef {
 
-  package {'systemtap-runtime':
-    ensure => 'present',
+    package {'systemtap-runtime':
+      ensure => 'present',
+    }
+
+    file {'/root/systemtap':
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0700',
+    }
+
+
+    create_resources('systemtap::stapfiles',$stapfiles)
   }
-
-  file {'/root/systemtap':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0700',
-  }
-
-
-  create_resources('systemtap::stapfiles',$stapfiles)
-
 }
