@@ -17,6 +17,13 @@ describe 'systemtap::stapfiles' do
       :title    => 'title_66',
       :stap     => 'stap_66',
     },
+    'RedHat 7.2' =>
+    {
+      :osfamily => 'RedHat',
+      :operatingsystemrelease => '7.2',
+      :title    => 'title_72',
+      :stap     => 'stap_72',
+    },
   }
 
 

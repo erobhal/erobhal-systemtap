@@ -17,6 +17,13 @@ describe 'systemtap' do
       :title    => 'title_66',
       :stap     => 'stap_66',
     },
+    'RedHat 7.2' =>
+    {
+      :osfamily => 'RedHat',
+      :operatingsystemrelease => '7.2',
+      :title    => 'title_72',
+      :stap     => 'stap_72',
+    },
   }
 
 
@@ -63,7 +70,7 @@ describe 'systemtap' do
       :osfamily => 'RedHat',
       :operatingsystemrelease => '77.7'
     } }
-    it { should contain_notify('systemtap supports RedHat 6.4 and 6.6. Detected RedHat release is 77.7.')}
+    it { should contain_notify('systemtap supports RedHat 6.4, 6.6 and 7.2. Detected RedHat release is 77.7.')}
   end
 
 

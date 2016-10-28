@@ -59,9 +59,17 @@ class systemtap (
             },
           }
         }
+        '7.2': {
+          $stapfiles = {
+            'CVE-2016-5195' => {
+              'stap'   => 'stap_08e68af03d8ec29346708c48b85801ce_65631',
+              'ensure' => $cve_2016_5195,
+            },
+          }
+        }
         default: {
           $stapfiles = undef
-          notify {"systemtap supports RedHat 6.4 and 6.6. Detected RedHat release is ${::operatingsystemrelease}.":}
+          notify {"systemtap supports RedHat 6.4, 6.6 and 7.2. Detected RedHat release is ${::operatingsystemrelease}.":}
         }
       }
     }
