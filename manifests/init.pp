@@ -60,6 +60,7 @@ class systemtap (
           }
         }
         default: {
+          $stapfiles = undef
           notify {"systemtap supports RedHat 6.4 and 6.6. Detected RedHat release is ${::operatingsystemrelease}.":}
         }
       }
