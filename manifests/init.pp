@@ -39,46 +39,42 @@ class systemtap (
   $cve_2016_5195 = 'absent',
 ) {
 
-
-  case $::osfamily {
-    'RedHat': {
-      case $::operatingsystemrelease {
-        '6.4': {
-          $stapfiles = {
-            'CVE-2016-5195' => {
-              'stap'   => 'stap_11b46466687403f5b1d22fc2fba37380_64592',
-              'ensure' => $cve_2016_5195,
-            },
-          }
-        }
-        '6.6': {
-          $stapfiles = {
-            'CVE-2016-5195' => {
-              'stap'   => 'stap_5afe0a813b16d0017d1b502a89afe606_64586',
-              'ensure' => $cve_2016_5195,
-            },
-          }
-        }
-        '7.2': {
-          $stapfiles = {
-            'CVE-2016-5195' => {
-              'stap'   => 'stap_08e68af03d8ec29346708c48b85801ce_65631',
-              'ensure' => $cve_2016_5195,
-            },
-          }
-        }
-        default: {
-          $stapfiles = undef
-          notify {"systemtap supports RedHat 6.4, 6.6 and 7.2. Detected RedHat release is ${::operatingsystemrelease}.":}
-        }
+  case $::kernelrelease {
+    '2.6.32-358.el6.x86_64': { # RHEL 6.4
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_89f393d7e9627f70427a7955cebb8eab_64551',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '2.6.32-504.30.3.el6.x86_64': { # RHEL 6.6
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_5afe0a813b16d0017d1b502a89afe606_64586',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '3.10.0-327.28.2.el7.x86_64': { # RHEL 7.2
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_802a3e229c22245e6df2d6ccb2064243_65631',
+          'ensure' => $cve_2016_5195,
+        },
       }
     }
     default: {
-      fail("systemtap supports osfamilies RedHat. Detected osfamily is ${::osfamily}.")
+      $stapfiles = undef
+      notify {"systemtap: no modules available for kernel ${::kernelrelease}.":}
     }
   }
 
   if $stapfiles != undef {
+
+    unless has_key($stapfiles, 'CVE-2016-5195') {
+      notify {"systemtap: module cve_2016_5195 not available for kernel ${::kernelrelease}.":}
+    }
 
     package {'systemtap-runtime':
       ensure => 'present',
