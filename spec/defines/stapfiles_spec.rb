@@ -3,26 +3,23 @@ require 'spec_helper'
 describe 'systemtap::stapfiles' do
 
   platforms = {
-    'RedHat 6.4' =>
+    '2.6.32-358.el6.x86_64' =>
     {
-      :osfamily => 'RedHat',
-      :operatingsystemrelease => '6.4',
       :title    => 'title_64',
       :stap     => 'stap_64',
+      :kernel   => '2.6.32-358.el6.x86_64',
     },
-    'RedHat 6.6' =>
+    '2.6.32-504.30.3.el6.x86_64' =>
     {
-      :osfamily => 'RedHat',
-      :operatingsystemrelease => '6.6',
       :title    => 'title_66',
       :stap     => 'stap_66',
+      :kernel   => '2.6.32-504.30.3.el6.x86_64',
     },
-    'RedHat 7.2' =>
+    '3.10.0-327.28.2.el7.x86_64' =>
     {
-      :osfamily => 'RedHat',
-      :operatingsystemrelease => '7.2',
       :title    => 'title_72',
       :stap     => 'stap_72',
+      :kernel   => '3.10.0-327.28.2.el7.x86_64',
     },
   }
 
@@ -30,8 +27,7 @@ describe 'systemtap::stapfiles' do
   platforms.sort.each do |k,v|
     describe "on #{k}" do
       let(:facts) { {
-        :osfamily => v[:osfamily],
-        :operatingsystemrelease => v[:operatingsystemrelease],
+        :kernelrelease => v[:kernel],
       } }
       let(:title) { v[:title] }
       let(:params) {{

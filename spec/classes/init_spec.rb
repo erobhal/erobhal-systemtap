@@ -2,36 +2,31 @@ require 'spec_helper'
 
 describe 'systemtap' do
 
-  platforms = {
-    'RedHat 6.4' =>
+  kernels = {
+    '2.6.32-358.el6.x86_64' =>
     {
-      :osfamily => 'RedHat',
-      :operatingsystemrelease => '6.4',
       :title    => 'title_64',
       :stap     => 'stap_64',
+      :kernel   => '2.6.32-358.el6.x86_64',
     },
-    'RedHat 6.6' =>
+    '2.6.32-504.30.3.el6.x86_64' =>
     {
-      :osfamily => 'RedHat',
-      :operatingsystemrelease => '6.6',
       :title    => 'title_66',
       :stap     => 'stap_66',
+      :kernel   => '2.6.32-504.30.3.el6.x86_64',
     },
-    'RedHat 7.2' =>
+    '3.10.0-327.28.2.el7.x86_64' =>
     {
-      :osfamily => 'RedHat',
-      :operatingsystemrelease => '7.2',
       :title    => 'title_72',
       :stap     => 'stap_72',
+      :kernel   => '3.10.0-327.28.2.el7.x86_64',
     },
   }
 
-
-  platforms.sort.each do |k,v|
+  kernels.sort.each do |k,v|
     describe "on #{k}" do
       let(:facts) { {
-        :osfamily => v[:osfamily],
-        :operatingsystemrelease => v[:operatingsystemrelease],
+        :kernelrelease => v[:kernel],
       } }
 
       context "default params on #{k}" do
@@ -53,26 +48,12 @@ describe 'systemtap' do
     end
   end
 
-  describe 'not on supported OS platform' do
+  describe 'not on supported kernel version' do
     let(:facts) { {
-      :osfamily => 'WrongOS',
-      :operatingsystemrelease => '6.6'
+      :kernelrelease => '1.1.1'
     } }
-    it 'should fail' do
-      expect {
-        should contain_class('systemtap')
-      }.to raise_error(Puppet::Error,/systemtap supports osfamilies RedHat. Detected osfamily is WrongOS./)
-    end
+    it { should contain_notify('systemtap: no modules available for kernel 1.1.1.')}
   end
-
-  describe 'not on supported OS version' do
-    let(:facts) { {
-      :osfamily => 'RedHat',
-      :operatingsystemrelease => '77.7'
-    } }
-    it { should contain_notify('systemtap supports RedHat 6.4, 6.6 and 7.2. Detected RedHat release is 77.7.')}
-  end
-
 
 end
 
