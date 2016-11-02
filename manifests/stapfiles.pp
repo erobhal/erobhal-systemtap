@@ -10,8 +10,6 @@ define systemtap::stapfiles (
   validate_re($ensure,'^(present)|(absent)$',
     "systemtap::stapfiles::${name}::ensure must be 'present' or 'absent'. Detected value is '${ensure}'.")
 
-  
-
   file { "/root/systemtap/${stap}.ko":
     ensure  => $ensure,
     owner   => 'root',

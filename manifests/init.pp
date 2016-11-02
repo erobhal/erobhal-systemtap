@@ -40,6 +40,22 @@ class systemtap (
 ) {
 
   case $::kernelrelease {
+    '2.6.32-71.el6.x86_64': { # RHEL 6.1
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_4f1b2eb1f6f654eac8de0f6c6aa183b6_63732',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '2.6.32-131.0.15.el6.x86_64': { # RHEL 6.1
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_546d1641c0209a531d8a7c283913daf2_1148',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
     '2.6.32-358.el6.x86_64': { # RHEL 6.4
       $stapfiles = {
         'CVE-2016-5195' => {
@@ -48,10 +64,66 @@ class systemtap (
         },
       }
     }
+    '2.6.32-358.0.1.el6.x86_64': { # RHEL 6.4
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_1e59319eeadeba30a051d505c5457adb_22283',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '2.6.32-358.2.1.el6.x86_64': { # RHEL 6.4
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_309382b97d8362f2b078f1e66270feb1_21495',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '2.6.32-358.23.2.el6.x86_64': { # RHEL 6.4
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_593c4145315c60b518b60446b1a29ff8_64586',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '2.6.32-504.el6.x86_64': { # RHEL 6.6
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_ea6da5efcd139011b6206c1b14f18093_31885',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
     '2.6.32-504.30.3.el6.x86_64': { # RHEL 6.6
       $stapfiles = {
         'CVE-2016-5195' => {
           'stap'   => 'stap_5afe0a813b16d0017d1b502a89afe606_64586',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '2.6.32-573.el6.x86_64': { # RHEL 6.7
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_2e89a675bef0aba035e0bd433d041918_54519',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '3.10.0-229.14.1.el7.x86_64': { # RHEL 7.1
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_e192590f724d781714e1ee20c690ebcc_65629',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
+    '3.10.0-327.4.4.el7.x86_64': { # RHEL 7.2
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_ca61092aebc514b9471a6a3e215ec768_65624',
           'ensure' => $cve_2016_5195,
         },
       }
