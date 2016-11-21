@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'systemtap::stapfiles' do
 
-  platforms = {
+  kernels = {
     '2.6.32-358.el6.x86_64' =>
     {
       :title    => 'title_64',
@@ -24,7 +24,7 @@ describe 'systemtap::stapfiles' do
   }
 
 
-  platforms.sort.each do |k,v|
+  kernels.sort.each do |k,v|
     describe "on #{k}" do
       let(:facts) { {
         :kernelrelease => v[:kernel],

@@ -112,6 +112,14 @@ class systemtap (
         },
       }
     }
+    '2.6.32-573.7.1.el6.x86_64': { # RHEL 6.7
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_c13876d03b289b03f837da7b3603d7f7_64585',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
     '3.10.0-229.14.1.el7.x86_64': { # RHEL 7.1
       $stapfiles = {
         'CVE-2016-5195' => {
