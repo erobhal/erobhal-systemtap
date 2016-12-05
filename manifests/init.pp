@@ -40,6 +40,14 @@ class systemtap (
 ) {
 
   case $::kernelrelease {
+    '2.6.18-164.el5': { # RHEL 5.4
+      $stapfiles = {
+        'CVE-2016-5195' => {
+          'stap'   => 'stap_638154140a4190439b92a3caa5d83bc7_856',
+          'ensure' => $cve_2016_5195,
+        },
+      }
+    }
     '2.6.32-71.el6.x86_64': { # RHEL 6.1
       $stapfiles = {
         'CVE-2016-5195' => {
